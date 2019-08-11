@@ -1,0 +1,21 @@
+language: minimal
+dist: xenial
+
+jobs:
+  include:
+    - stage: test
+      script:
+        - env | grep -v PATH | grep -v GO > .env
+        - make docker_test
+        - bash <(curl -s https://codecov.io/bash)
+    - stage: deploy
+      if: branch IN (master, develop) OR tag IS present
+      script:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker build -t ingtranet/nriy-receiver:$TRAVIS_BRANCH .
+        - docker images
+        - docker push ingtranet/nriy-receiver:$TRAVIS_BRANCH
+
+
+
+

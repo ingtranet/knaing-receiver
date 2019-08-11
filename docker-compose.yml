@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  receiver:
+    build:
+      context: .
+      dockerfile: Dockerfile-test
+    volumes:
+      - type: bind
+        source: .
+        target: /nriy-receiver
+    command: >
+        bash -c "sleep 3; go test -ginkgo.v -race -coverprofile=coverage.txt -covermode=atomic /nriy-receiver"
+    env_file:
+      - .env
+    environment:
+      DOCKER_COMPOSE_TEST: 1
+      NATS_URL: "nats://stan:4222"
+      CHANNEL_SECRET: my_secret
+      STAN_CLUSTER_ID: test-cluster
+      STAN_CLIENT_ID: test
+      STAN_CHANNEL: test.nriy.event.received
+      STAN_LOG_CHANNEL: test.nriy.app.jsonlog
+      LOG_LEVEL: debug
+      PORT: 8080
+    depends_on:
+      - stan
+  stan:
+    image: "nats-streaming:0.15.1"
+    expose:
+      - "4222"
+    logging:
+      driver: none
