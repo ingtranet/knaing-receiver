@@ -15,7 +15,6 @@ func newConfig() (*viper.Viper, error) {
 		"nats_url",
 		"channel_secret",
 		"stan_cluster_id",
-		"stan_client_id",
 		"stan_channel",
 		"stan_log_channel",
 		"log_level",
