@@ -1,2 +1,2 @@
 test :
-docker-compose up --build --exit-code-from receiver
+	docker-compose up --build --exit-code-from receiver

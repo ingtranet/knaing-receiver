@@ -46,7 +46,7 @@ func configureGlobalLogger(config *viper.Viper) {
 
 	log.Logger = log.
 		With().
-		Str("source", "nriy-receiver").
+		Str("source", "knaing-receiver").
 		Caller().
 		Timestamp().
 		Logger()

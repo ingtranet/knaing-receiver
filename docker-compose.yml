@@ -7,9 +7,9 @@ services:
     volumes:
       - type: bind
         source: .
-        target: /nriy-receiver
+        target: /knaing-receiver
     command: >
-        bash -c "sleep 3; go test -ginkgo.v -race -coverprofile=coverage.txt -covermode=atomic /nriy-receiver"
+        bash -c "sleep 3; go test -ginkgo.v -race -coverprofile=coverage.txt -covermode=atomic /knaing-receiver"
     env_file:
       - .env
     environment:
@@ -18,8 +18,8 @@ services:
       CHANNEL_SECRET: my_secret
       STAN_CLUSTER_ID: test-cluster
       STAN_CLIENT_ID: test
-      STAN_CHANNEL: test.nriy.event.received
-      STAN_LOG_CHANNEL: test.nriy.app.jsonlog
+      STAN_CHANNEL: test.knaing.event.received
+      STAN_LOG_CHANNEL: test.knaing.app.jsonlog
       LOG_LEVEL: debug
       PORT: 8080
     depends_on:

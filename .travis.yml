@@ -12,9 +12,9 @@ jobs:
       if: branch IN (master, develop) OR tag IS present
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker build -t ingtranet/nriy-receiver:$TRAVIS_BRANCH .
+        - docker build -t ingtranet/knaing-receiver:$TRAVIS_BRANCH .
         - docker images
-        - docker push ingtranet/nriy-receiver:$TRAVIS_BRANCH
+        - docker push ingtranet/knaing-receiver:$TRAVIS_BRANCH
 
 
 

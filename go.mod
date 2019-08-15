@@ -1,4 +1,4 @@
-module github.com/ingtranet/nriy-receiver
+module github.com/ingtranet/knaing-receiver
 
 go 1.12
 

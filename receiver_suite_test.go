@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestNriyReceiver(t *testing.T) {
+func TestKnaingReceiver(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "nriy-receiver test Suite")
+	RunSpecs(t, "knaing-receiver test Suite")
 }
