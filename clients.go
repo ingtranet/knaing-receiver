@@ -1,14 +1,22 @@
 package receiver
 
 import (
+	"github.com/labstack/gommon/random"
 	"github.com/nats-io/stan.go"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
+	"os"
 )
 
 func newStanClient(config *viper.Viper) (stan.Conn, error) {
 	clusterID := config.GetString("stan_cluster_id")
-	clientID := config.GetString("stan_client_id")
+	var clientID string
+	hostname, err := os.Hostname()
+	if err != nil {
+		clientID = hostname
+	} else {
+		clientID = random.String(10)
+	}
 	natsURL := config.GetString("nats_url")
 
 	client, err := stan.Connect(clusterID, clientID, stan.NatsURL(natsURL))
