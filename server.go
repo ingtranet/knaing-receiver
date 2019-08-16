@@ -20,9 +20,7 @@ func newServer(lc fx.Lifecycle, config *viper.Viper) (*echo.Echo, error) {
 
 	lc.Append(fx.Hook{
 		OnStart: func(context.Context) error {
-			if err := server.Start(":" + port); err != nil {
-				panic(errors.Wrap(err, "server start failed"))
-			}
+			go server.Start(":" + port)
 			return nil
 		},
 		OnStop: func(ctx context.Context) error {
