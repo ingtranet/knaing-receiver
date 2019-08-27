@@ -22,7 +22,7 @@ func newStanClient(config *viper.Viper) (stan.Conn, error) {
 	natsURL := config.GetString("nats_url")
 
 	log.Info().Msg(fmt.Sprintf("creating connection with %s %s %s", clusterID, clientID, natsURL))
-	client, err := stan.Connect(clusterID, clientID, stan.NatsURL(natsURL))
+	client, err := stan.Connect(clusterID, clientID, stan.NatsURL(natsURL), stan.Pings(3, 20))
 	if err != nil {
 		return nil, errors.Wrap(err, "creating stan client failed: " + natsURL)
 	}
