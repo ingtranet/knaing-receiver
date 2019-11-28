@@ -2,9 +2,11 @@ package receiver
 
 import (
 	"context"
+	"encoding/json"
 	"github.com/nats-io/stan.go"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
+	"github.com/vmihailenco/msgpack"
 	"net/http"
 
 	"github.com/labstack/echo"
@@ -50,7 +52,13 @@ func configureRouter(server *echo.Echo, config *viper.Viper, client stan.Conn) {
 				return errors.Wrap(err, "json marshaling failed")
 			}
 			log.Debug().Msg("dealing with: " + string(b))
-			err = client.Publish(stanChannel, b)
+			var o interface{}
+			_ = json.Unmarshal(b, o)
+			mpb, err := msgpack.Marshal(o)
+			if err != nil {
+				return errors.Wrap(err, "msgpack marshaling failed")
+			}
+			err = client.Publish(stanChannel, mpb)
 			if err != nil {
 				return errors.Wrap(err, "stan publish failed")
 			}

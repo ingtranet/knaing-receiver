@@ -3,7 +3,6 @@ module github.com/ingtranet/knaing-receiver
 go 1.12
 
 require (
-	github.com/go-redis/redis v6.15.2+incompatible
 	github.com/labstack/echo v3.3.10+incompatible
 	github.com/labstack/gommon v0.2.9
 	github.com/line/line-bot-sdk-go v6.3.0+incompatible
@@ -14,7 +13,7 @@ require (
 	github.com/pkg/errors v0.8.1
 	github.com/rs/zerolog v1.14.3
 	github.com/spf13/viper v1.4.0
-	github.com/vmihailenco/msgpack v4.0.4+incompatible
+	github.com/vmihailenco/msgpack v4.0.4+incompatible // indirect
 	go.uber.org/dig v1.7.0 // indirect
 	go.uber.org/fx v1.9.0
 	go.uber.org/goleak v0.10.0 // indirect

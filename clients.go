@@ -5,9 +5,9 @@ import (
 	"github.com/labstack/gommon/random"
 	"github.com/nats-io/stan.go"
 	"github.com/pkg/errors"
+	"github.com/rs/zerolog/log"
 	"github.com/spf13/viper"
 	"os"
-	"github.com/rs/zerolog/log"
 )
 
 func newStanClient(config *viper.Viper) (stan.Conn, error) {
