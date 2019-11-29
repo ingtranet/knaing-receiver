@@ -8,9 +8,12 @@ func NewApp() *fx.App {
 			newConfig,
 			newStanClient,
 			newServer,
+			newLogger,
+		),
+		fx.Populate(
+			&logger,
 		),
 		fx.Invoke(
-			configureGlobalLogger,
 			configureRouter,
 		),
 	)

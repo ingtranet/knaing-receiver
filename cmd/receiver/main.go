@@ -1,6 +1,8 @@
 package main
 
-import . "github.com/ingtranet/knaing-receiver"
+import (
+	. "github.com/ingtranet/knaing-receiver"
+)
 
 func main() {
 	receiver := NewApp()

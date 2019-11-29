@@ -13,7 +13,6 @@ import (
 	"github.com/labstack/echo/middleware"
 	bot "github.com/line/line-bot-sdk-go/linebot"
 	"go.uber.org/fx"
-	"github.com/rs/zerolog/log"
 )
 
 func newServer(lc fx.Lifecycle, config *viper.Viper) (*echo.Echo, error) {
@@ -51,7 +50,7 @@ func configureRouter(server *echo.Echo, config *viper.Viper, client stan.Conn) {
 			if err != nil {
 				return errors.Wrap(err, "json marshaling failed")
 			}
-			log.Debug().Msg("dealing with: " + string(b))
+			logger.Debug().Msg("dealing with: " + string(b))
 			var o interface{}
 			_ = json.Unmarshal(b, o)
 			mpb, err := msgpack.Marshal(o)

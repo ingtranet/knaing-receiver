@@ -3,9 +3,11 @@ package receiver
 import (
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
-	"github.com/rs/zerolog/log"
 	"github.com/spf13/viper"
+	"os"
 )
+
+var logger zerolog.Logger
 
 func newConfig() (*viper.Viper, error) {
 	config := viper.New()
@@ -34,19 +36,13 @@ func newConfig() (*viper.Viper, error) {
 	return config, nil
 }
 
-func configureGlobalLogger(config *viper.Viper) {
+func newLogger(config *viper.Viper) zerolog.Logger {
 	logLevelStr := config.GetString("log_level")
 	logLevel, err := zerolog.ParseLevel(logLevelStr)
 	if err != err {
 		panic(errors.Wrap(err, "parsing log_level failed"))
 	}
-	zerolog.SetGlobalLevel(logLevel)
-	zerolog.TimeFieldFormat = zerolog.TimeFormatUnixMs
 
-	log.Logger = log.
-		With().
-		Str("source", "knaing-receiver").
-		Caller().
-		Timestamp().
-		Logger()
+	return zerolog.New(os.Stdout).With().Timestamp().Caller().Str("source", "knaing-receiver").Logger().Level(logLevel)
 }
+
