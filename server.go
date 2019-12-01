@@ -52,7 +52,7 @@ func configureRouter(server *echo.Echo, config *viper.Viper, client stan.Conn) {
 			}
 			logger.Debug().Msg("dealing with: " + string(b))
 			var o map[string]interface{}
-			err = json.Unmarshal(b, o)
+			err = json.Unmarshal(b, &o)
 			if err != nil {
 				return errors.Wrap(err, "json unmarshaling failed")
 			}
