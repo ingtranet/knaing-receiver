@@ -1,15 +1,17 @@
 package receiver
 
 import (
+	"context"
 	"fmt"
 	"github.com/labstack/gommon/random"
 	"github.com/nats-io/stan.go"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
+	"go.uber.org/fx"
 	"os"
 )
 
-func newStanClient(config *viper.Viper) (stan.Conn, error) {
+func newStanClient(lc fx.Lifecycle, config *viper.Viper) (stan.Conn, error) {
 	clusterID := config.GetString("stan_cluster_id")
 	var clientID string
 	hostname, err := os.Hostname()
@@ -25,5 +27,12 @@ func newStanClient(config *viper.Viper) (stan.Conn, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "creating stan client failed: " + natsURL)
 	}
+
+	lc.Append(fx.Hook{
+		OnStop: func(ctx context.Context) error {
+			return client.Close()
+		},
+	})
+
 	return client, nil
 }
