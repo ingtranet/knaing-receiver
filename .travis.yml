@@ -15,7 +15,9 @@ jobs:
         - docker build -t ingtranet/knaing-receiver:$TRAVIS_BRANCH .
         - docker images
         - docker push ingtranet/knaing-receiver:$TRAVIS_BRANCH
-
+notifications:
+  slack:
+    secure: ingtranet:ubtSCmP1bvlDC4vmc4pFJpaa
 
 
 
